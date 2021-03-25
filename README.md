@@ -7,4 +7,4 @@ When editing your dungeon the mod uses the keys bound to Select Character 1,2,3,
 * Use 'F3' or '3' to move rooms up
 * Use 'F4' or '4' to move rooms down
 
-Available at: https://www.nexusmods.com/solastacrownofthemagister/mods/tbd
+Available at: https://www.nexusmods.com/solastacrownofthemagister/mods/24
