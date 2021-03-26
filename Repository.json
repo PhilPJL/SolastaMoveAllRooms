@@ -1,6 +1,7 @@
 {
     "Releases":
     [
-        {"Id": "SolastaMoveAllRooms", "Version": "1.0.1", "DownloadUrl": "https://github.com/PhilPJL/SolastaMoveAllRooms/releases/download/V1.0.1/SolastaMoveAllRooms.zip"}
+        {"Id": "SolastaMoveAllRooms", "Version": "1.0.1", "DownloadUrl": "https://github.com/PhilPJL/SolastaMoveAllRooms/releases/download/V1.0.1/SolastaMoveAllRooms.zip"},
+        {"Id": "SolastaMoveAllRooms", "Version": "1.0.2", "DownloadUrl": "https://github.com/PhilPJL/SolastaMoveAllRooms/releases/download/V1.0.2/SolastaMoveAllRooms.zip"}
     ]
 }
