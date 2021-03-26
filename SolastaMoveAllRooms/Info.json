@@ -6,7 +6,7 @@
   "GameVersion": "0.5.41",
   "Id": "SolastaMoveAllRooms",
   "ManagerVersion": "0.23.0",
-  "Version": "1.0.2",
+  "Version": "1.0.1",
   "HomePage": "https://www.nexusmods.com/solastacrownofthemagister/mods/24",
-  "Repository": "https://github.com/PhilPJL/SolastaMoveAllRooms/blob/master/Repository.json"
+  "Repository": "https://raw.githubusercontent.com/PhilPJL/SolastaMoveAllRooms/master/Repository.json"
 }
