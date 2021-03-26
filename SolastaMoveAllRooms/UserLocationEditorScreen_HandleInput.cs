@@ -58,8 +58,6 @@ namespace SolastaMoveAllRooms
                 {
                     Main.Log($"{ur.Position.x}, {ur.Position.y}");
                     ur.Position = new UnityEngine.Vector2Int(ur.Position.x + xOffset, ur.Position.y + yOffset);
-                    // This should work be more efficient, but it doesn't - weird.
-                    //ur.Position.Set(ur.Position.x + xOffset, ur.Position.y + yOffset);
                     Main.Log($"{ur.Position.x}, {ur.Position.y}");
                 }
 
