@@ -4,7 +4,7 @@
   "DisplayName": "Solasta move all rooms",
   "EntryMethod": "SolastaMoveAllRooms.Main.Load",
   "GameVersion": "0.5.41",
-  "Id": "Solasta.SolastaMoveAllRooms",
+  "Id": "SolastaMoveAllRooms",
   "ManagerVersion": "0.23.0",
   "Version": "1.0.0"
 }

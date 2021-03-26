@@ -25,22 +25,10 @@ namespace SolastaMoveAllRooms
             var miny = rooms.Min(ur => (int?)ur.Position.y) ?? 0;
             var maxy = rooms.Max(ur => (int?)(ur.Position.y + ur.OrientedHeight)) ?? 0;
 
-            var size = 0;
-
-            switch (location.Size)
+            if (!UserLocationDefinitions.CellsBySize.TryGetValue(location.Size, out var size))
             {
-                case UserLocationDefinitions.Size.Small:
-                    size = 50;
-                    break;
-                case UserLocationDefinitions.Size.Medium:
-                    size = 70;
-                    break;
-                case UserLocationDefinitions.Size.Large:
-                    size = 100;
-                    break;
-                default:
-                    Main.Error($"Unknown size {location.Size}");
-                    break;
+                Main.Error($"Unknown room size: {location.Size}");
+                return;
             }
 
             switch (command)
@@ -68,7 +56,11 @@ namespace SolastaMoveAllRooms
 
                 foreach (var ur in rooms)
                 {
+                    Main.Log($"{ur.Position.x}, {ur.Position.y}");
                     ur.Position = new UnityEngine.Vector2Int(ur.Position.x + xOffset, ur.Position.y + yOffset);
+                    // This should work be more efficient, but it doesn't - weird.
+                    //ur.Position.Set(ur.Position.x + xOffset, ur.Position.y + yOffset);
+                    Main.Log($"{ur.Position.x}, {ur.Position.y}");
                 }
 
                 ___anythingModified = true;

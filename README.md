@@ -1,4 +1,4 @@
-# Solasta Move All Rooms
+# Move All Rooms
 
 A simple mod to allow you to move all rooms in Solasta Dungeon Maker up/down/left/right.
 When editing your dungeon the mod uses the keys bound to Select Character 1,2,3,4
