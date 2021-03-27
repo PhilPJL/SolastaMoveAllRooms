@@ -32,37 +32,37 @@ namespace SolastaMoveAllRooms
             switch (command)
             {
                 case InputCommands.Id.SelectCharacter1:
-                    if (maxx < size) MoveAll(1, 0, ref ___anythingModified);
+                    if (maxx < size) MoveAll(1, 0, out ___anythingModified);
                     break;
 
                 case InputCommands.Id.SelectCharacter2:
-                    if (minx > 0) MoveAll(-1, 0, ref ___anythingModified);
+                    if (minx > 0) MoveAll(-1, 0, out ___anythingModified);
                     break;
 
                 case InputCommands.Id.SelectCharacter3:
-                    if (maxy < size) MoveAll(0, 1, ref ___anythingModified);
+                    if (maxy < size) MoveAll(0, 1, out ___anythingModified);
                     break;
 
                 case InputCommands.Id.SelectCharacter4:
-                    if (miny > 0) MoveAll(0, -1, ref ___anythingModified);
+                    if (miny > 0) MoveAll(0, -1, out ___anythingModified);
                     break;
 
                 case InputCommands.Id.RotateCCW:
-                    Rotate(-90f, ref ___anythingModified);
+                    Rotate(-90f, out ___anythingModified);
                     break;
 
                 case InputCommands.Id.RotateCW:
-                    Rotate(90f, ref ___anythingModified);
+                    Rotate(90f, out ___anythingModified);
                     break;
             }
 
             #region Local functions
-            void Rotate(float rotationAngle, ref bool anythingModified)
+            void Rotate(float rotationAngle, out bool anythingModified)
             {
-                var rotation = Quaternion.Euler(0.0f, 0.0f, -rotationAngle);
+                var rotation = Quaternion.Euler(0f, 0f, -rotationAngle);
                 Main.Log($"angle={rotationAngle}, rotation={rotation}");
 
-                var dungeonCenter = new Vector3(size / 2, size / 2);
+                var dungeonCenter = new Vector3(size / 2f, size / 2f);
                 Main.Log($"dungeon center ({dungeonCenter.x}, {dungeonCenter.y})");
 
                 foreach (var ur in rooms)
@@ -70,7 +70,7 @@ namespace SolastaMoveAllRooms
                     Main.Log($"room orientation before ({ur.Orientation}, {ur.OrientedWidth}, {ur.OrientedHeight})");
                     Main.Log($"current room position ({ur.Position.x}, {ur.Position.y})");
 
-                    var currentRoomCenter = new Vector3(ur.Position.x + ur.OrientedWidth / 2, ur.Position.y + ur.OrientedHeight / 2);
+                    var currentRoomCenter = new Vector3(ur.Position.x + ur.OrientedWidth / 2f, ur.Position.y + ur.OrientedHeight / 2f);
                     Main.Log($"current room center ({currentRoomCenter.x}, {currentRoomCenter.y})");
 
                     var newRoomCenter = rotation * (currentRoomCenter - dungeonCenter) + dungeonCenter;
@@ -79,14 +79,14 @@ namespace SolastaMoveAllRooms
                     ur.Rotate(rotationAngle);
                     Main.Log($"room orientation after {ur.Orientation}, {ur.OrientedWidth}, {ur.OrientedHeight}");
 
-                    ur.Position = new Vector2Int(Mathf.RoundToInt(newRoomCenter.x - ur.OrientedWidth / 2), Mathf.RoundToInt(newRoomCenter.y - ur.OrientedHeight / 2));
+                    ur.Position = new Vector2Int(Mathf.RoundToInt(newRoomCenter.x - ur.OrientedWidth / 2f), Mathf.RoundToInt(newRoomCenter.y - ur.OrientedHeight / 2f));
                     Main.Log($"new room position ({ur.Position.x}, {ur.Position.y})");
                 }
 
-                Update(ref anythingModified);
+                Update(out anythingModified);
             }
 
-            void MoveAll(int xOffset, int yOffset, ref bool anythingModified)
+            void MoveAll(int xOffset, int yOffset, out bool anythingModified)
             {
                 Main.Log($"xmin={minx}, ymin={miny}, xmax={maxx}, ymax={maxy}, size={size}, xoff={xOffset}, yoff={yOffset}");
 
@@ -97,10 +97,10 @@ namespace SolastaMoveAllRooms
                     Main.Log($"{ur.Position.x}, {ur.Position.y}");
                 }
 
-                Update(ref anythingModified);
+                Update(out anythingModified);
             }
 
-            void Update(ref bool anythingModified)
+            void Update(out bool anythingModified)
             {
                 anythingModified = true;
                 panel.RefreshRooms();
