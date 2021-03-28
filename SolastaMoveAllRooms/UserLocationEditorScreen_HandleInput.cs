@@ -108,7 +108,7 @@ namespace SolastaMoveAllRooms
             void NotifyBeforeModification()
             {
                 // NOTE: NotifyBeforeModification
-                // sets anythingModified = true, calls RefreshButtons() and stores curent dungeon in undo manager.
+                // sets anythingModified = true, calls RefreshButtons() and stores current dungeon in undo manager.
 
                 var rb = typeof(UserLocationEditorScreen).GetMethod("NotifyBeforeModification", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                 Main.Log($"calling notifyBeforeModification {rb != null}");
