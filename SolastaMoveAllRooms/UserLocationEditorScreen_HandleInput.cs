@@ -8,7 +8,7 @@ namespace SolastaMoveAllRooms
     [HarmonyPatch(typeof(UserLocationEditorScreen), "HandleInput")]
     internal static class UserLocationEditorScreen_HandleInput
     {
-        public static void Prefix(UserLocationEditorScreen __instance, ref bool ___anythingModified, InputCommands.Id command)
+        public static void Prefix(UserLocationEditorScreen __instance, InputCommands.Id command)
         {
             if (__instance == null)
                 return;
@@ -32,33 +32,36 @@ namespace SolastaMoveAllRooms
             switch (command)
             {
                 case InputCommands.Id.SelectCharacter1:
-                    if (maxx < size) MoveAll(1, 0, out ___anythingModified);
+                    if (maxx < size) MoveAll(1, 0);
                     break;
 
                 case InputCommands.Id.SelectCharacter2:
-                    if (minx > 0) MoveAll(-1, 0, out ___anythingModified);
+                    if (minx > 0) MoveAll(-1, 0);
                     break;
 
                 case InputCommands.Id.SelectCharacter3:
-                    if (maxy < size) MoveAll(0, 1, out ___anythingModified);
+                    if (maxy < size) MoveAll(0, 1);
                     break;
 
                 case InputCommands.Id.SelectCharacter4:
-                    if (miny > 0) MoveAll(0, -1, out ___anythingModified);
+                    if (miny > 0) MoveAll(0, -1);
                     break;
 
                 case InputCommands.Id.RotateCCW:
-                    Rotate(-90f, out ___anythingModified);
+                    Rotate(-90f);
                     break;
 
                 case InputCommands.Id.RotateCW:
-                    Rotate(90f, out ___anythingModified);
+                    Rotate(90f);
                     break;
             }
 
             #region Local functions
-            void Rotate(float rotationAngle, out bool anythingModified)
+
+            void Rotate(float rotationAngle)
             {
+                NotifyBeforeModification();
+
                 var rotation = Quaternion.Euler(0f, 0f, -rotationAngle);
                 Main.Log($"angle={rotationAngle}, rotation={rotation}");
 
@@ -83,11 +86,13 @@ namespace SolastaMoveAllRooms
                     Main.Log($"new room position ({ur.Position.x}, {ur.Position.y})");
                 }
 
-                Update(out anythingModified);
+                panel.RefreshRooms();
             }
 
-            void MoveAll(int xOffset, int yOffset, out bool anythingModified)
+            void MoveAll(int xOffset, int yOffset)
             {
+                NotifyBeforeModification();
+
                 Main.Log($"xmin={minx}, ymin={miny}, xmax={maxx}, ymax={maxy}, size={size}, xoff={xOffset}, yoff={yOffset}");
 
                 foreach (var ur in rooms)
@@ -97,22 +102,18 @@ namespace SolastaMoveAllRooms
                     Main.Log($"{ur.Position.x}, {ur.Position.y}");
                 }
 
-                Update(out anythingModified);
-            }
-
-            void Update(out bool anythingModified)
-            {
-                anythingModified = true;
                 panel.RefreshRooms();
-                RefreshButtons();
             }
 
-            void RefreshButtons()
+            void NotifyBeforeModification()
             {
-                var rb = typeof(UserLocationEditorScreen).GetMethod("RefreshButtons", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-                Main.Log($"calling refreshbuttons {rb != null}");
+                // NOTE: NotifyBeforeModification sets anythingModified = true and calls RefreshButtons()
+
+                var rb = typeof(UserLocationEditorScreen).GetMethod("NotifyBeforeModification", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                Main.Log($"calling notifyBeforeModification {rb != null}");
                 rb?.Invoke(__instance, null);
             }
+
             #endregion
         }
     }
