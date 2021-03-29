@@ -48,6 +48,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Program Files (x86)\SteamLibrary\steamapps\common\Slasta_COTM\Solasta_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Program Files (x86)\SteamLibrary\steamapps\common\Slasta_COTM\Solasta_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Program Files (x86)\SteamLibrary\steamapps\common\Slasta_COTM\Solasta_Data\Managed\UnityEngine.UI.dll</HintPath>
@@ -58,9 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterInspectionScreen_HandleInput.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserLocationEditorScreen_HandleInput.cs" />
+    <Compile Include="UserLocationEditorScreen_OnSaveCb.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HarmonyX">

@@ -17,34 +17,65 @@ namespace SolastaMoveAllRooms
             var location = panel.UserLocation;
             var rooms = location.UserRooms;
 
-            // get extents
-            var minx = rooms.Min(ur => (int?)ur.Position.x) ?? 0;
-            var maxx = rooms.Max(ur => (int?)(ur.Position.x + ur.OrientedWidth)) ?? 0;
-            var miny = rooms.Min(ur => (int?)ur.Position.y) ?? 0;
-            var maxy = rooms.Max(ur => (int?)(ur.Position.y + ur.OrientedHeight)) ?? 0;
-
             if (!UserLocationDefinitions.CellsBySize.TryGetValue(location.Size, out var size))
             {
                 Main.Error($"Unknown room size: {location.Size}");
                 return;
             }
 
+            // get extents
+            var minx = rooms.Min(ur => (int?)ur.Position.x) ?? 0;
+            var maxx = rooms.Max(ur => (int?)(ur.Position.x + ur.OrientedWidth)) ?? 0;
+            var miny = rooms.Min(ur => (int?)ur.Position.y) ?? 0;
+            var maxy = rooms.Max(ur => (int?)(ur.Position.y + ur.OrientedHeight)) ?? 0;
+
+            bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
+            int offset = shiftPressed ? 5 : 1;
+
             switch (command)
             {
                 case InputCommands.Id.SelectCharacter1:
-                    if (maxx < size) MoveAll(1, 0);
+                    if (maxx + offset <= size)
+                    {
+                        MoveAll(offset, 0);
+                    }
+                    else
+                    {
+                        MoveAll(size - maxx, 0);
+                    }
                     break;
 
                 case InputCommands.Id.SelectCharacter2:
-                    if (minx > 0) MoveAll(-1, 0);
+                    if (minx - offset > 0)
+                    { 
+                        MoveAll(-offset, 0); 
+                    }
+                    else if(minx > 0)
+                    {
+                        MoveAll(-minx, 0);
+                    }
                     break;
 
                 case InputCommands.Id.SelectCharacter3:
-                    if (maxy < size) MoveAll(0, 1);
+                    if (maxy + offset <= size)
+                    {
+                        MoveAll(0, offset);
+                    }
+                    else if (size - maxy > 0)
+                    {
+                        MoveAll(0, size - maxy);
+                    }
                     break;
 
                 case InputCommands.Id.SelectCharacter4:
-                    if (miny > 0) MoveAll(0, -1);
+                    if (miny - offset > 0)
+                    {
+                        MoveAll(0, -offset);
+                    }
+                    else if (miny > 0)
+                    {
+                        MoveAll(0, -miny);
+                    }
                     break;
 
                 case InputCommands.Id.RotateCCW:
@@ -60,6 +91,11 @@ namespace SolastaMoveAllRooms
 
             void Rotate(float rotationAngle)
             {
+                if (rotationAngle == 0f)
+                {
+                    return;
+                }
+
                 NotifyBeforeModification();
 
                 var rotation = Quaternion.Euler(0f, 0f, -rotationAngle);
@@ -91,18 +127,21 @@ namespace SolastaMoveAllRooms
 
             void MoveAll(int xOffset, int yOffset)
             {
-                NotifyBeforeModification();
-
-                Main.Log($"xmin={minx}, ymin={miny}, xmax={maxx}, ymax={maxy}, size={size}, xoff={xOffset}, yoff={yOffset}");
-
-                foreach (var ur in rooms)
+                if (xOffset != 0 || yOffset != 0)
                 {
-                    Main.Log($"{ur.Position.x}, {ur.Position.y}");
-                    ur.Position = new Vector2Int(ur.Position.x + xOffset, ur.Position.y + yOffset);
-                    Main.Log($"{ur.Position.x}, {ur.Position.y}");
-                }
+                    NotifyBeforeModification();
 
-                panel.RefreshRooms();
+                    Main.Log($"xmin={minx}, ymin={miny}, xmax={maxx}, ymax={maxy}, size={size}, xoff={xOffset}, yoff={yOffset}");
+
+                    foreach (var ur in rooms)
+                    {
+                        Main.Log($"{ur.Position.x}, {ur.Position.y}");
+                        ur.Position = new Vector2Int(ur.Position.x + xOffset, ur.Position.y + yOffset);
+                        Main.Log($"{ur.Position.x}, {ur.Position.y}");
+                    }
+
+                    panel.RefreshRooms();
+                }
             }
 
             void NotifyBeforeModification()
