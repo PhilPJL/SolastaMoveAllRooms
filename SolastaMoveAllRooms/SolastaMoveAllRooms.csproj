@@ -62,9 +62,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterInspectionScreen_DoClose.cs" />
     <Compile Include="CharacterInspectionScreen_HandleInput.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RulesetActor_SerializeAttributes.cs" />
+    <Compile Include="SettingDropListItem_Bind.cs" />
     <Compile Include="UserLocationEditorScreen_HandleInput.cs" />
     <Compile Include="UserLocationEditorScreen_OnSaveCb.cs" />
   </ItemGroup>

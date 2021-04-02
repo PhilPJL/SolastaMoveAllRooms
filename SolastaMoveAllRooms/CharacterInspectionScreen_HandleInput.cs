@@ -35,30 +35,45 @@ namespace SolastaMoveAllRooms
                     heroCharacter.Name = "Exp" + name;
                     heroCharacter.BuiltIn = false;
 
-                    string path = TacticalAdventuresApplication.GameCharactersDirectory;
-                    string filename = Path.Combine(path, heroCharacter.Name) + ".chr";
+                    //var hero = new RulesetCharacterHero();
 
-                    var snapshot = new RulesetCharacterHero.Snapshot();
+                    AccessTools.Field(heroCharacter.GetType(), "guid").SetValue(heroCharacter, 0UL);
 
-                    heroCharacter.FillSnapshot(snapshot, true);
+                    ServiceRepository.GetService<ICharacterPoolService>().SaveCharacter(heroCharacter, true);
+                    //string path = TacticalAdventuresApplication.GameCharactersDirectory;
+                    //string filename = Path.Combine(path, heroCharacter.Name) + ".chr";
 
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
+                    //var snapshot = new RulesetCharacterHero.Snapshot();
 
-                    if (File.Exists(filename))
-                        File.Delete(filename);
+                    //heroCharacter.FillSnapshot(snapshot, true);
 
-                    using (var fileStream = File.Create(filename))
-                    using (var binarySerializer = new BinarySerializer(fileStream, Serializer.SerializationMode.Write, new BinarySerializer.Settings()))
-                    {
-                        binarySerializer.SerializeElement("Snapshot", snapshot);
-                        binarySerializer.SerializeElement("HeroCharacter", heroCharacter);
-                    }
+                    //if (!Directory.Exists(path))
+                    //    Directory.CreateDirectory(path);
+
+                    //if (File.Exists(filename))
+                    //    File.Delete(filename);
+
+                    //using (var fileStream = File.Create(filename))
+                    //using (var binarySerializer = new BinarySerializer(fileStream, Serializer.SerializationMode.Write, new BinarySerializer.Settings()))
+                    //{
+                    //    binarySerializer.SerializeElement("Snapshot", snapshot);
+                    //    binarySerializer.SerializeElement("HeroCharacter", heroCharacter);
+                    //}
+
+                    //if (!__instance.Pool.ContainsKey(filename))
+                    //    this.pool.Add(filename, snapshot);
+                    //else
+                    //    this.pool[filename] = snapshot;
+                    //CharacterPoolDefinitions.CharacterPoolRefreshedHandler characterPoolRefreshed = this.CharacterPoolRefreshed;
+                    //if (characterPoolRefreshed == null)
+                    //    return;
+                    //characterPoolRefreshed();
                 }
                 finally
                 {
                     heroCharacter.Name = name;
                     heroCharacter.BuiltIn = builtin;
+                    AccessTools.Field(heroCharacter.GetType(), "guid").SetValue(heroCharacter, guid);
                 }
             }
         }

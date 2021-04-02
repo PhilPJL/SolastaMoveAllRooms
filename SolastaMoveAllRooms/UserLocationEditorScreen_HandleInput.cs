@@ -47,10 +47,10 @@ namespace SolastaMoveAllRooms
 
                 case InputCommands.Id.SelectCharacter2:
                     if (minx - offset > 0)
-                    { 
-                        MoveAll(-offset, 0); 
+                    {
+                        MoveAll(-offset, 0);
                     }
-                    else if(minx > 0)
+                    else if (minx > 0)
                     {
                         MoveAll(-minx, 0);
                     }
