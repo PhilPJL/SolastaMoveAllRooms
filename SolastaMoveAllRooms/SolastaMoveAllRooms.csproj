@@ -36,22 +36,22 @@
 
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp">
-			<HintPath>$(SolastaManaged)\Assembly-CSharp.dll</HintPath>
+			<HintPath>$([System.IO.Path]::Combine($(SolastaManaged), 'Assembly-CSharp.dll'))</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="UnityEngine.CoreModule">
-			<HintPath>$(SolastaManaged)\UnityEngine.CoreModule.dll</HintPath>
+			<HintPath>$([System.IO.Path]::Combine($(SolastaManaged), 'UnityEngine.CoreModule.dll'))</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="UnityEngine.InputLegacyModule">
-			<HintPath>$(SolastaManaged)\UnityEngine.InputLegacyModule.dll</HintPath>
+			<HintPath>$([System.IO.Path]::Combine($(SolastaManaged), 'UnityEngine.InputLegacyModule.dll'))</HintPath>
 			<Private>false</Private>
 		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
 		<Reference Include="UnityModManager">
-			<HintPath>$(UnityModManager)\UnityModManager.dll</HintPath>
+			<HintPath>$([System.IO.Path]::Combine($(UnityModManager), 'UnityModManager.dll'))</HintPath>
 			<Private>false</Private>
 		</Reference>
 	</ItemGroup>
