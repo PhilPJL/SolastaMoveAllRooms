@@ -29,7 +29,7 @@ namespace SolastaMoveAllRooms
             var miny = rooms.Min(ur => (int?)ur.Position.y) ?? 0;
             var maxy = rooms.Max(ur => (int?)(ur.Position.y + ur.OrientedHeight)) ?? 0;
 
-            bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
+            bool shiftPressed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
             int offset = shiftPressed ? 5 : 1;
 
             switch (command)
