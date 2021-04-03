@@ -1,8 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk" InitialTargets="CheckEnvironmentVars">
 
 	<PropertyGroup>
 		<TargetFrameworks>netframework472</TargetFrameworks>
-		<UnityVersion>2019.4.23f1</UnityVersion>
 		<Copyright>Copyright © ImpPhil 2021</Copyright>
 		<AssemblyVersion>1.1.0.0</AssemblyVersion>
 		<FileVersion>1.1.0.0</FileVersion>
@@ -12,47 +11,55 @@
 		<PackageProjectUrl>https://github.com/PhilPJL/SolastaMoveAllRooms</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/PhilPJL/SolastaMoveAllRooms</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageReleaseNotes>Changed to modern project file format.
-Moved all references to Nuget where practical.</PackageReleaseNotes>
+		<PackageReleaseNotes>
+			Changed to modern project file format.
+		</PackageReleaseNotes>
 	</PropertyGroup>
 
+	<Target Name="CheckEnvironmentVars">
+		<Error Text="Please set the SolastaManaged environment variable." Condition="'$(SolastaManaged)' == ''" ContinueOnError="false"/>
+		<Error Text="Please set the UnityModManager environment variable." Condition="'$(UnityModManager)' == ''" ContinueOnError="false"/>
+	</Target>
+	
 	<ItemGroup>
-	  <Compile Remove="CharacterInspectionScreen_DoClose.cs" />
-	  <Compile Remove="CharacterInspectionScreen_HandleInput.cs" />
-	  <Compile Remove="RulesetActor_SerializeAttributes.cs" />
-	  <Compile Remove="SettingDropListItem_Bind.cs" />
-	  <Compile Remove="SpellRepertoirePanel_OnBeginShow.cs" />
-	  <Compile Remove="UserLocationEditorScreen_OnSaveCb.cs" />
+		<Compile Remove="CharacterInspectionScreen_DoClose.cs" />
+		<Compile Remove="CharacterInspectionScreen_HandleInput.cs" />
+		<Compile Remove="RulesetActor_SerializeAttributes.cs" />
+		<Compile Remove="SettingDropListItem_Bind.cs" />
+		<Compile Remove="SpellRepertoirePanel_OnBeginShow.cs" />
+		<Compile Remove="UserLocationEditorScreen_OnSaveCb.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="HarmonyX" Version="2.4.0" />
-		<PackageReference Include="Unity3D" Version="1.7.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="Assembly-CSharp">
-	    <HintPath>D:\Program Files (x86)\SteamLibrary\steamapps\common\Slasta_COTM\Solasta_Data\Managed\Assembly-CSharp.dll</HintPath>
-	  </Reference>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>$(SolastaManaged)\Assembly-CSharp.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>$(SolastaManaged)\UnityEngine.CoreModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.InputLegacyModule">
+			<HintPath>$(SolastaManaged)\UnityEngine.InputLegacyModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
 	</ItemGroup>
-	
-    <ItemGroup>
-        <Reference Include="UnityModManager">
-          <HintPath>..\..\..\..\Documents\UnityModManager-21-0-23-1-1614426185\UnityModManager\UnityModManager.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-	
-    <ItemGroup>
-        <Reference Remove="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" />
-        <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.CoreModule.dll" Private="false" />
-        <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.InputLegacyModule.dll" Private="false" />
-        <!-- Other module references -->
-    </ItemGroup>
-	
-    <ItemGroup>
-      <None Update="Info.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="UnityModManager">
+			<HintPath>$(UnityModManager)\UnityModManager.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Info.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>
