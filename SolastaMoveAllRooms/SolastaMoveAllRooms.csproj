@@ -14,8 +14,15 @@
 		<PackageReleaseNotes>
 			Changed to modern project file format.
 		</PackageReleaseNotes>
+		<Configurations>Debug;Release;Debug Install;Release Install</Configurations>
 	</PropertyGroup>
-
+	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Install|AnyCPU' Or '$(Configuration)|$(Platform)' == 'Release Install|AnyCPU'">
+		<OutputPath>$(SolastaInstallDir)\Mods\SolastaMoveAllRooms\</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+	
 	<Target Name="CheckEnvironmentVars">
 		<Error Text="Please set the SolastaInstallDir environment variable." Condition="'$(SolastaInstallDir)' == ''" ContinueOnError="false" />
 	</Target>
