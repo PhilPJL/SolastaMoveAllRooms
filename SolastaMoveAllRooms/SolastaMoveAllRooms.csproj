@@ -23,6 +23,19 @@
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	</PropertyGroup>
 	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Install|AnyCPU'">
+	  <DefineConstants>DEBUG;TRACE</DefineConstants>
+	  <Optimize>false</Optimize>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DefineConstants>DEBUG;TRACE</DefineConstants>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Install|AnyCPU'">
+	  <Optimize>true</Optimize>
+	</PropertyGroup>
+	
 	<Target Name="CheckEnvironmentVars">
 		<Error Text="Please set the SolastaInstallDir environment variable." Condition="'$(SolastaInstallDir)' == ''" ContinueOnError="false" />
 	</Target>
