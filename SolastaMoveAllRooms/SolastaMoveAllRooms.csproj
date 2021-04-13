@@ -41,15 +41,6 @@
 	</Target>
 
 	<ItemGroup>
-		<Compile Remove="CharacterInspectionScreen_DoClose.cs" />
-		<Compile Remove="CharacterInspectionScreen_HandleInput.cs" />
-		<Compile Remove="RulesetActor_SerializeAttributes.cs" />
-		<Compile Remove="SettingDropListItem_Bind.cs" />
-		<Compile Remove="SpellRepertoirePanel_OnBeginShow.cs" />
-		<Compile Remove="UserLocationEditorScreen_OnSaveCb.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Reference Include="Assembly-CSharp">
 			<HintPath>$([System.IO.Path]::Combine($(SolastaInstallDir), 'Solasta_Data\Managed\Assembly-CSharp.dll'))</HintPath>
 			<Private>false</Private>
