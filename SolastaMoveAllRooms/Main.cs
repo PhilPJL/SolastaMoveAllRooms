@@ -5,7 +5,7 @@ using UnityModManagerNet;
 
 namespace SolastaMoveAllRooms
 {
-    public class Main
+    public static class Main
     {
         [Conditional("DEBUG")]
         internal static void Log(string msg) => Logger.Log(msg);
