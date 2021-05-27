@@ -7,6 +7,9 @@ When editing your dungeon the mod uses the keys bound to Select Character 1, 2, 
 * Use 'F2' or '2' to move rooms left by 1 cell, or 5 cells when pressing shift
 * Use 'F3' or '3' to move rooms up by 1 cell, or 5 cells when pressing shift
 * Use 'F4' or '4' to move rooms down by 1 cell, or 5 cells when pressing shift
+
+Note that Solasta now implements move up/down/right/left using Ctrl-Up/Down/Left/Right
+
 * Use 'Q' to rotate clockwise
 * Use 'E' to rotate counter clockwise
 
